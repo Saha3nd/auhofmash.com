@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 import random
+from sqlalchemy import or_
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -80,7 +81,14 @@ def update_elo_route():
 
 @app.route('/podium')
 def podium():
-    all_pictures = Picture.query.order_by(Picture.elo_rating.desc()).all()
+    # Filter out entries with filenames containing digits
+    all_pictures = Picture.query.filter(
+        Picture.filename.isnot(None),
+        Picture.filename != 'None',
+        Picture.elo_rating != 1500,
+        ~Picture.filename.ilike('%[0-9]%')  # Exclude filenames with digits
+    ).order_by(Picture.elo_rating.desc()).all()
+
     podium_data = {rank + 1: {'filename': picture.filename, 'elo_rating': picture.elo_rating} for rank, picture in enumerate(all_pictures)}
 
     return render_template('podium.html', podium_data=podium_data)

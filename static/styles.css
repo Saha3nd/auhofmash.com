@@ -1,0 +1,99 @@
+/* static/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.frame-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.frame-frame {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.frame-text {
+    font-size: 24px;
+}
+
+.frame-text02 {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* Horizontal images container */
+.frame-images-horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.frame-image-container {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.frame-picture-horizontal {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.frame-text07 {
+    font-size: 24px;
+    margin: 0 10px;
+}
+
+.frame-text09,
+.frame-text11,
+.frame-text13 {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* Elo Reset button */
+button {
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.frame-podium-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+    background: none;
+    color: #3498db;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.frame-heading {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.frame-rectangle {
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.frame-text15 {
+    font-size: 20px;
+}

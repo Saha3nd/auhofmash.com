@@ -6,20 +6,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Picture Comparison</title>
+
+    <!-- Add the link to the styles.css file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
-    <h1>Picture Comparison</h1>
+    <div class="frame-container">
+        <div class="frame-frame">
+            <span class="frame-text"><span>View Rankings</span></span>
+            <span class="frame-text02">
+                <span>
+                    <span>Is it just about looks? No.</span>
+                    <br />
+                    <span>Will we be judged on them? Yes.</span>
+                </span>
+            </span>
+            
+            <!-- Horizontal images container -->
+            <div class="frame-images-horizontal">
+                <div class="frame-image-container" onclick="chooseWinner('{{ picture1.id }}', '{{ picture2.id }}')">
+                    <img src="{{ url_for('static', filename='uploads/' + picture1.filename) }}" alt="Picture 1" class="frame-picture-horizontal">
+                </div>
+                <span class="frame-text07"><span>OR</span></span>
+                <div class="frame-image-container" onclick="chooseWinner('{{ picture2.id }}', '{{ picture1.id }}')">
+                    <img src="{{ url_for('static', filename='uploads/' + picture2.filename) }}" alt="Picture 2" class="frame-picture-horizontal">
+                </div>
+            </div>
 
-    <!-- Add Reset Elo Ratings button -->
-    <button onclick="resetEloRatings()">Reset Elo Ratings</button>
+            <span class="frame-text09"><span>Click to Choose</span></span>
+            <span class="frame-text11"><span>Who’s Hotter?</span></span>
+            <span class="frame-text13"><span>About</span></span>
 
-    <div style="display: flex; flex-direction: column; align-items: center;">
-        <div onclick="chooseWinner('{{ picture1.id }}', '{{ picture2.id }}')" style="cursor: pointer;">
-            <img src="{{ url_for('static', filename='uploads/' + picture1.filename) }}" alt="Picture 1" style="max-width: 400px; max-height: 400px;">
-        </div>
-        <div onclick="chooseWinner('{{ picture2.id }}', '{{ picture1.id }}')" style="cursor: pointer;">
-            <img src="{{ url_for('static', filename='uploads/' + picture2.filename) }}" alt="Picture 2" style="max-width: 400px; max-height: 400px;">
+            <!-- Elo Reset button -->
+            <button onclick="resetEloRatings()">Reset Elo Ratings</button>
+
+            <!-- Podium button -->
+            <a href="{{ url_for('podium') }}" class="frame-podium-button">View Rankings</a>
+
+            <div class="frame-heading">
+                <img src="/rectangle25-dler-200h.png" alt="Rectangle25" class="frame-rectangle">
+                <span class="frame-text15"><span>AuhofMash</span></span>
+            </div>
         </div>
     </div>
 
