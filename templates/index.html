@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,84 +11,88 @@
     <!-- Add the link to the styles.css file -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
+    <div class="container">
+        <div class="frame-container">
+            <div class="frame-frame">
 
-    <div class="frame-container">
-        <div class="frame-frame">
-            
-            <span class="frame-text13"><span>About</span></span><br/>
-            
-            <span class="frame-text11"><span>Who’s Hotter?</span><br /></span>
-            <span class="frame-text09"><span>Click to Choose</span></span>
-
-            <!-- Horizontal images container -->
-            <div class="frame-images-horizontal">
-                <div class="frame-image-container" onclick="chooseWinner('{{ picture1.id }}', '{{ picture2.id }}')">
-                    <img src="{{ url_for('static', filename='uploads/' + picture1.filename) }}" alt="Picture 1" class="frame-picture-horizontal">
+                <div class="frame-heading">
+                    <span class="frame-text15"><span>AuhofMash</span></span>
                 </div>
-                <span class="frame-text07"><span>OR</span></span>
-                <div class="frame-image-container" onclick="chooseWinner('{{ picture2.id }}', '{{ picture1.id }}')">
-                    <img src="{{ url_for('static', filename='uploads/' + picture2.filename) }}" alt="Picture 2" class="frame-picture-horizontal">
-                </div>
-            </div>
+                <span class="frame-text13"><span>About</span></span><br />
 
-            <span class="frame-text02">
-                <span>
-                    <span>Is it just about looks? No.</span>
-                    <span>Will we be judged on them? Yes.</span>
+                <span class="frame-text11"><span>Who’s Hotter?</span><br /></span>
+                <span class="frame-text09"><span>Click to Choose</span><br /></span><br />
+
+                <!-- Horizontal images container -->
+                <div class="frame-images-horizontal">
+                    <div class="frame-image-container" onclick="chooseWinner('{{ picture1.id }}', '{{ picture2.id }}')">
+                        <img src="{{ url_for('static', filename='uploads/' + picture1.filename) }}" alt="Picture 1"
+                            class="frame-picture-horizontal">
+                    </div>
+                    <span class="frame-text07"><span>OR</span></span>
+                    <div class="frame-image-container" onclick="chooseWinner('{{ picture2.id }}', '{{ picture1.id }}')">
+                        <img src="{{ url_for('static', filename='uploads/' + picture2.filename) }}" alt="Picture 2"
+                            class="frame-picture-horizontal">
+                    </div>
+                </div>
+
+                <span class="motto">
+                    <span>
+                        <span>Is looks all that matters? No.</span><br />
+                        <span>Will we be judged on them? Yes.</span><br />
+                    </span>
                 </span>
-            </span>
 
-            <!-- Elo Reset button -->
-            <button onclick="resetEloRatings()">Reset Elo Ratings</button>
+                <!-- Elo Reset button -->
+                <button onclick="resetEloRatings()">Reset Elo Ratings</button>
 
-            <!-- Podium button -->
-            <a href="{{ url_for('podium') }}" class="frame-podium-button">View Rankings</a>
+                <!-- Podium button -->
+                <a href="{{ url_for('podium') }}" class="frame-podium-button">View Rankings</a>
 
-            <div class="frame-heading">
-                <span class="frame-text15"><span>AuhofMash</span></span>
             </div>
         </div>
+
+        <script>
+            function chooseWinner(winnerId, loserId) {
+                // Make an AJAX request to the server
+                fetch('/update_elo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ winner: winnerId, loser: loserId }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message); // Display a message from the server
+                        location.reload();   // Refresh the page after the update
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+
+            function resetEloRatings() {
+                // Make an AJAX request to reset Elo ratings
+                fetch('/reset_elos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ new_elo: 1500 }), // You can change the new Elo rating if needed
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message); // Display a message from the server
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
     </div>
-
-    <script>
-        function chooseWinner(winnerId, loserId) {
-            // Make an AJAX request to the server
-            fetch('/update_elo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ winner: winnerId, loser: loserId }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message); // Display a message from the server
-                location.reload();   // Refresh the page after the update
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        function resetEloRatings() {
-            // Make an AJAX request to reset Elo ratings
-            fetch('/reset_elos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ new_elo: 1500 }), // You can change the new Elo rating if needed
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message); // Display a message from the server
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    </script>    
-
 </body>
+
 </html>

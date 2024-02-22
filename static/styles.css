@@ -1,30 +1,43 @@
 /* static/styles.css */
 
-body {
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box; /* Include padding and borders in total width and height */
 }
 
-.frame-container {
+/* static/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    max-width: 100%; /* Set maximum width */
+    overflow: hidden; /* Hide overflow */
 }
 
 .frame-frame {
     text-align: center;
-    padding: 20px;
-    border: 1px solid #ccc;
+    padding: 20px; /* Add padding for space around the content */
+    border: none;
+    width: 100%; /* Set width to 100% */
+    box-sizing: border-box; /* Include padding and border in the total width */
+    overflow: hidden;
 }
 
 .frame-text {
     font-size: 24px;
 }
 
-.frame-text02 {
-    margin-top: 20px;
-    padding: 40;
-    font-size: 24;
+.motto {
+    margin-top: 40;
+    padding-top: 40;
+    margin-bottom: 60px;
+    font-size: 24px; 
 }
 
 /* Horizontal images container */
@@ -33,6 +46,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 60px;
 }
 
 .frame-image-container {
@@ -42,26 +56,26 @@ body {
 
 .frame-picture-horizontal {
     max-width: 200px;
-    max-height: 200px;
+    max-height: 235px;
 }
 
 .frame-text07 {
-    font-size: 24px;
-    margin: 0 10px;
+    font-size: 14px;
+    margin: 0 0px;
 }
 
 .frame-text09 {
-    font-size: 14;
+    font-size: 16px; /* Add 'px' unit */
 }
 
 .frame-text11 {
-    font-size: 42px;
+    font-size: 46px;
 }
 
 .frame-text13 {
     display: inline-block;
     margin-top: -20px;
-    padding: 40px;
+    margin-bottom: 40px;
     cursor: pointer;
     background: none;
     color: #1c1c1c;
@@ -74,14 +88,17 @@ body {
 
 /* Elo Reset button */
 button {
+    display: inline-block;
     margin-top: 20px;
     padding: 10px;
     cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
+    background: none;
+    color: #1c1c1c;
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    text-decoration: underline;
+    text-align: center;
 }
 
 .frame-podium-button {
@@ -99,14 +116,13 @@ button {
 }
 
 .frame-heading {
-    margin-top: 20px;
-    display: flex;
+    text-align: center;
     align-items: center;
 }
 
 .frame-rectangle {
-    max-width: 50px;
-    max-height: 50px;
+    width: 50px; /* Set a fixed width */
+    height: 50px; /* Set a fixed height */
     margin-right: 10px;
 }
 

@@ -1,0 +1,21 @@
+/* static/podium.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+th, td {
+    font-weight: normal;
+}
+
+.podium-frame {
+    text-align: center;
+    padding: 20px;
+    border: none;
+    margin-top: 0px; /* Adjust the margin-top as needed */
+}
+
+.table-container {
+    margin-top: 20px; /* Adjust the margin-top as needed */
+}
