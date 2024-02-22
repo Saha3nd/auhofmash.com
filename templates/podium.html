@@ -16,6 +16,7 @@
             <tr>
                 <th>Rank</th>
                 <th>Picture</th>
+                <th>File Name</th>
                 <th>Elo Rating</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                     <td>
                         <img src="{{ url_for('static', filename='uploads/' + entry['filename']) }}" alt="Picture" style="max-width: 100px; max-height: 100px;">
                     </td>
+                    <td>{{ entry.filename.split('.')[0] }}</td> <!-- Corrected line using split method -->
                     <td>{{ entry['elo_rating'] }}</td>
                 </tr>
             {% endfor %}
