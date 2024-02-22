@@ -23,7 +23,8 @@ body {
 
 .frame-text02 {
     margin-top: 20px;
-    font-size: 16px;
+    padding: 40;
+    font-size: 24;
 }
 
 /* Horizontal images container */
@@ -49,11 +50,26 @@ body {
     margin: 0 10px;
 }
 
-.frame-text09,
-.frame-text11,
+.frame-text09 {
+    font-size: 14;
+}
+
+.frame-text11 {
+    font-size: 42px;
+}
+
 .frame-text13 {
-    margin-top: 20px;
+    display: inline-block;
+    margin-top: -20px;
+    padding: 40px;
+    cursor: pointer;
+    background: none;
+    color: #1c1c1c;
+    border: none;
+    border-radius: 5px;
     font-size: 16px;
+    text-decoration: underline;
+    text-align: center;
 }
 
 /* Elo Reset button */
@@ -74,7 +90,7 @@ button {
     padding: 10px;
     cursor: pointer;
     background: none;
-    color: #3498db;
+    color: #1c1c1c;
     border: none;
     border-radius: 5px;
     font-size: 16px;

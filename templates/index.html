@@ -14,15 +14,12 @@
 
     <div class="frame-container">
         <div class="frame-frame">
-            <span class="frame-text"><span>View Rankings</span></span>
-            <span class="frame-text02">
-                <span>
-                    <span>Is it just about looks? No.</span>
-                    <br />
-                    <span>Will we be judged on them? Yes.</span>
-                </span>
-            </span>
             
+            <span class="frame-text13"><span>About</span></span><br/>
+            
+            <span class="frame-text11"><span>Who’s Hotter?</span><br /></span>
+            <span class="frame-text09"><span>Click to Choose</span></span>
+
             <!-- Horizontal images container -->
             <div class="frame-images-horizontal">
                 <div class="frame-image-container" onclick="chooseWinner('{{ picture1.id }}', '{{ picture2.id }}')">
@@ -34,9 +31,12 @@
                 </div>
             </div>
 
-            <span class="frame-text09"><span>Click to Choose</span></span>
-            <span class="frame-text11"><span>Who’s Hotter?</span></span>
-            <span class="frame-text13"><span>About</span></span>
+            <span class="frame-text02">
+                <span>
+                    <span>Is it just about looks? No.</span>
+                    <span>Will we be judged on them? Yes.</span>
+                </span>
+            </span>
 
             <!-- Elo Reset button -->
             <button onclick="resetEloRatings()">Reset Elo Ratings</button>
@@ -45,7 +45,6 @@
             <a href="{{ url_for('podium') }}" class="frame-podium-button">View Rankings</a>
 
             <div class="frame-heading">
-                <img src="/rectangle25-dler-200h.png" alt="Rectangle25" class="frame-rectangle">
                 <span class="frame-text15"><span>AuhofMash</span></span>
             </div>
         </div>
