@@ -1,0 +1,36 @@
+<!-- templates/podium.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podium</title>
+</head>
+<body>
+
+    <h1>Podium</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Picture</th>
+                <th>Elo Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rank, entry in podium_data.items() %}
+                <tr>
+                    <td>{{ rank }}</td>
+                    <td>
+                        <img src="{{ url_for('static', filename='uploads/' + entry['filename']) }}" alt="Picture" style="max-width: 100px; max-height: 100px;">
+                    </td>
+                    <td>{{ entry['elo_rating'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
