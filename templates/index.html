@@ -56,7 +56,7 @@
 
         <script>
             function chooseWinner(winnerId, loserId) {
-                // Make an AJAX request to the server
+                // Make an AJAX request to update Elo ratings
                 fetch('/update_elo', {
                     method: 'POST',
                     headers: {
@@ -66,7 +66,21 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        location.reload();   // Refresh the page after the update
+                        // After updating Elo ratings, make another request to get new pictures
+                        fetchNewPictures();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+
+            function fetchNewPictures() {
+                // Make an AJAX request to get new pictures
+                fetch('/')
+                    .then(response => response.text())
+                    .then(html => {
+                        // Replace the current page content with the new HTML
+                        document.body.innerHTML = html;
                     })
                     .catch(error => {
                         console.error('Error:', error);
