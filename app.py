@@ -17,7 +17,7 @@ class Picture(db.Model):
     filename = db.Column(db.String(120), unique=True, nullable=False)  # Ensure filenames are unique
     elo_rating = db.Column(db.Integer, default=1500)
 
-def update_elo(winner_elo, loser_elo, k=64):
+def update_elo(winner_elo, loser_elo, k=32):
     # Function to update Elo ratings
     winner_expected = 1 / (1 + 10**((loser_elo - winner_elo) / 400))
     loser_expected = 1 / (1 + 10**((winner_elo - loser_elo) / 400))
@@ -56,23 +56,12 @@ def update_elo_route():
         new_elo_winner, new_elo_loser = update_elo(winner_elo, loser_elo)
         print(f"After Update - Winner Elo: {new_elo_winner}, Loser Elo: {new_elo_loser}")
 
-        # Check if a picture with the same Elo rating already exists
-        existing_winner = Picture.query.filter_by(elo_rating=new_elo_winner).first()
-        existing_loser = Picture.query.filter_by(elo_rating=new_elo_loser).first()
 
-        if existing_winner:
-            winner = existing_winner
-        else:
-            # Save updated Elo rating to the database
-            winner.elo_rating = new_elo_winner
-            db.session.add(winner)
+        winner.elo_rating = new_elo_winner
+        db.session.add(winner)
 
-        if existing_loser:
-            loser = existing_loser
-        else:
-            # Save updated Elo rating to the database
-            loser.elo_rating = new_elo_loser
-            db.session.add(loser)
+        loser.elo_rating = new_elo_loser
+        db.session.add(loser)
 
         db.session.commit()  # Commit changes to the database
 
