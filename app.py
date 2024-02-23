@@ -17,7 +17,7 @@ class Picture(db.Model):
     filename = db.Column(db.String(120), unique=True, nullable=False)  # Ensure filenames are unique
     elo_rating = db.Column(db.Integer, default=1500)
 
-def update_elo(winner_elo, loser_elo, k=32):
+def update_elo(winner_elo, loser_elo, k=64):
     # Function to update Elo ratings
     winner_expected = 1 / (1 + 10**((loser_elo - winner_elo) / 400))
     loser_expected = 1 / (1 + 10**((winner_elo - loser_elo) / 400))
@@ -88,17 +88,42 @@ def podium():
 
     return render_template('podium.html', podium_data=podium_data)
 
+def get_comparable_pictures(elo_rating, picture_filenames, threshold=100):
+    # Get a list of picture filenames with Elo ratings close to the given rating
+    comparable_filenames = [
+        filename for filename in picture_filenames
+        if (
+            Picture.query.filter_by(filename=filename).first() is not None and
+            abs(Picture.query.filter_by(filename=filename).first().elo_rating - elo_rating) < threshold
+        )
+    ]
+
+    return comparable_filenames
 
 @app.route('/')
 def index():
-    # Route to display two random pictures for comparison
+    # Route to display two pictures for comparison based on Elo ratings
     uploads_folder = os.path.join(app.static_folder, 'uploads')
     picture_filenames = os.listdir(uploads_folder)
 
     if len(picture_filenames) < 2:
         return "Not enough pictures in the 'uploads' folder."
 
-    picture1_filename, picture2_filename = random.sample(picture_filenames, 2)
+    # Choose a random picture as the base for Elo rating comparison
+    base_picture_filename = random.choice(picture_filenames)
+    base_picture_elo = Picture.query.filter_by(filename=base_picture_filename).first()
+
+    if base_picture_elo is None:
+        return "Base picture not found in the database."
+
+    # Get comparable pictures based on Elo ratings
+    comparable_filenames = get_comparable_pictures(base_picture_elo.elo_rating, picture_filenames)
+
+    if len(comparable_filenames) < 2:
+        return "Not enough comparable pictures for the chosen base picture."
+
+    # Choose two random comparable pictures for comparison
+    picture1_filename, picture2_filename = random.sample(comparable_filenames, 2)
 
     # Get or create Picture objects from the database using filenames
     picture1 = Picture.query.filter_by(filename=picture1_filename).first()
@@ -113,11 +138,6 @@ def index():
         picture2 = Picture(filename=picture2_filename)
         db.session.add(picture2)
         db.session.commit()
-
-    print(f"Picture 1 Filename: {picture1_filename}")
-    print(f"Picture 2 Filename: {picture2_filename}")
-    print(f"Picture 1 Object: {picture1}")
-    print(f"Picture 2 Object: {picture2}")
 
     return render_template('index.html', picture1=picture1, picture2=picture2)
 
