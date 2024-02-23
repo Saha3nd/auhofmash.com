@@ -40,7 +40,7 @@
 
                 <span class="motto">
                     <span>
-                        <span>Is looks all that matters? No.</span><br />
+                        <span>Is our looks all that matters? No.</span><br />
                         <span>Will we be judged on them? Yes.</span><br />
                     </span>
                 </span>
@@ -66,7 +66,6 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        alert(data.message); // Display a message from the server
                         location.reload();   // Refresh the page after the update
                     })
                     .catch(error => {

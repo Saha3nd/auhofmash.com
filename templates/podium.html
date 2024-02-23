@@ -34,7 +34,7 @@
                                     alt="Picture" style="max-width: 100px; max-height: 100px;">
                             </td>
                             <td>{{ entry.filename.split('.')[0] }}</td> <!-- Corrected line using split method -->
-                            <td>{{ entry['elo_rating'] }}</td>
+                            <td class="elo-rating">{{ entry['elo_rating']|round|int }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

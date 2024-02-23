@@ -17,7 +17,7 @@ class Picture(db.Model):
     filename = db.Column(db.String(120), unique=True, nullable=False)  # Ensure filenames are unique
     elo_rating = db.Column(db.Integer, default=1500)
 
-def update_elo(winner_elo, loser_elo, k=32):
+def update_elo(winner_elo, loser_elo, k=64):
     # Function to update Elo ratings
     winner_expected = 1 / (1 + 10**((loser_elo - winner_elo) / 400))
     loser_expected = 1 / (1 + 10**((winner_elo - loser_elo) / 400))
@@ -44,15 +44,17 @@ def update_elo_route():
     winner_id = data.get('winner')
     loser_id = data.get('loser')
 
-    winner = Picture.query.get(winner_id)
-    loser = Picture.query.get(loser_id)
+    winner = db.session.get(Picture, winner_id)
+    loser = db.session.get(Picture, loser_id)
 
     if winner and loser:
         winner_elo = winner.elo_rating
         loser_elo = loser.elo_rating
 
+        print(f"Before Update - Winner Elo: {winner_elo}, Loser Elo: {loser_elo}")
         # Update Elo ratings
         new_elo_winner, new_elo_loser = update_elo(winner_elo, loser_elo)
+        print(f"After Update - Winner Elo: {new_elo_winner}, Loser Elo: {new_elo_loser}")
 
         # Check if a picture with the same Elo rating already exists
         existing_winner = Picture.query.filter_by(elo_rating=new_elo_winner).first()
@@ -83,15 +85,20 @@ def update_elo_route():
 def podium():
     # Filter out entries with filenames containing digits
     all_pictures = Picture.query.filter(
-        Picture.filename.isnot(None),
-        Picture.filename != 'None',
         Picture.elo_rating != 1500,
-        ~Picture.filename.ilike('%[0-9]%')  # Exclude filenames with digits
     ).order_by(Picture.elo_rating.desc()).all()
 
-    podium_data = {rank + 1: {'filename': picture.filename, 'elo_rating': picture.elo_rating} for rank, picture in enumerate(all_pictures)}
+    podium_data = {
+        rank + 1: {
+            'filename': picture.filename,
+            'elo_rating': round(picture.elo_rating)
+        } for rank, picture in enumerate(all_pictures)
+    }
+
+    app.logger.info(f"Podium Data: {podium_data}")  # Log the podium data
 
     return render_template('podium.html', podium_data=podium_data)
+
 
 @app.route('/')
 def index():
@@ -124,10 +131,6 @@ def index():
     print(f"Picture 2 Object: {picture2}")
 
     return render_template('index.html', picture1=picture1, picture2=picture2)
-
-from flask import Flask, render_template, request, jsonify
-
-# ... (your existing code)
 
 @app.route('/reset_elos', methods=['POST'])
 def reset_elos():
