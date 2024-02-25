@@ -17,7 +17,7 @@ class Picture(db.Model):
     filename = db.Column(db.String(120), unique=True, nullable=False)  # Ensure filenames are unique
     elo_rating = db.Column(db.Integer, default=1500)
 
-def update_elo(winner_elo, loser_elo, k=64):
+def update_elo(winner_elo, loser_elo, k=32):
     # Function to update Elo ratings
     winner_expected = 1 / (1 + 10**((loser_elo - winner_elo) / 400))
     loser_expected = 1 / (1 + 10**((winner_elo - loser_elo) / 400))
@@ -75,7 +75,7 @@ def podium():
     # Filter out entries with filenames containing digits
     all_pictures = Picture.query.filter(
         Picture.elo_rating != 1500,
-    ).order_by(Picture.elo_rating.desc()).all()
+    ).order_by(Picture.elo_rating.desc()).limit(16).all()
 
     podium_data = {
         rank + 1: {

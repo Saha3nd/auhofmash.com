@@ -21,3 +21,7 @@ th, td {
 .table-container {
     margin-top: 20px; /* Adjust the margin-top as needed */
 }
+
+.limit-text {
+    font-size: 12px;
+}
