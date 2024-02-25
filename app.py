@@ -156,5 +156,13 @@ def reset_elos():
 
     return jsonify({'message': f'Elo ratings reset to {new_elo} successfully'})
 
+@app.route('/about_us')
+def about_us():
+    return render_template('about_us.html')
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'ok'})
+
 if __name__ == '__main__':
     app.run(debug=True)

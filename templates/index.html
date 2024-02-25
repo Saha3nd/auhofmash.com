@@ -20,8 +20,6 @@
                 <div class="frame-heading">
                     <span class="frame-text15"><span>AuhofMash</span></span>
                 </div>
-                <span class="frame-text13"><span>About</span></span><br />
-
                 <span class="frame-text11"><span>Who’s Hotter?</span><br /></span>
                 <span class="frame-text09"><span>Click to Choose</span><br /></span><br />
 
@@ -45,8 +43,9 @@
                     </span>
                 </span>
 
-                <!-- Elo Reset button -->
-                <button onclick="resetEloRatings()">Reset Elo Ratings</button>
+                <!-- Remove Elo Reset button and replace with the About Us link -->
+                <!-- <button onclick="resetEloRatings()">Reset Elo Ratings</button> -->
+                <a href="{{ url_for('about_us') }}" class="frame-podium-button">About Us</a>
 
                 <!-- Podium button -->
                 <a href="{{ url_for('podium') }}" class="frame-podium-button">View Rankings</a>
@@ -81,24 +80,6 @@
                     .then(html => {
                         // Replace the current page content with the new HTML
                         document.body.innerHTML = html;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-
-            function resetEloRatings() {
-                // Make an AJAX request to reset Elo ratings
-                fetch('/reset_elos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ new_elo: 1500 }), // You can change the new Elo rating if needed
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        alert(data.message); // Display a message from the server
                     })
                     .catch(error => {
                         console.error('Error:', error);

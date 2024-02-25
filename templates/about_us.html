@@ -1,0 +1,37 @@
+<!-- templates/about_us.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+
+    <!-- Add the link to the styles.css file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='about_us_styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="frame-container">
+            <div class="frame-frame">
+
+                <div class="frame-heading">
+                    <h2>About</h2>
+                </div>
+
+                <!-- Add your About Us content here -->
+                <p>Ignited by a scene from The Social Network, the idea of putting pitcures of girls from our school next to each other and have people vote on who’s hotter was amusing. </br> </br> The moral of the story is; try a bit harder for your next school picture. You never know who’s gonna take them down and make a ranking system out of them. </p>
+
+                <!-- Add more content as needed -->
+
+                <!-- Back button to go back to the main page -->
+                <a href="{{ url_for('index') }}" class="frame-podium-button">Back to Main Page</a>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

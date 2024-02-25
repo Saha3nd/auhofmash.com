@@ -1,0 +1,29 @@
+/* static/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    max-width: 100%;
+    overflow: hidden; /* Hide overflow */
+}
+
+.frame-frame {
+    text-align: center;
+    padding: 20px; /* Add padding for space around the content */
+    border: none;
+    width: 100%; /* Set width to 100% */
+    box-sizing: border-box; /* Include padding and border in the total width */
+    overflow: hidden;
+    max-width: 450px;
+}
+
+.frame-text {
+    font-size: 24px;
+}
