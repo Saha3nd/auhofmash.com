@@ -160,9 +160,21 @@ def reset_elos():
 def about_us():
     return render_template('about_us.html')
 
-@app.route('/health', methods=['GET'])
+# Health check route
+@app.route('/healthz')
 def health_check():
-    return jsonify({'status': 'ok'})
+    # Perform quick sanity checks (e.g., simple database query)
+    # Return an "OK" 200 response or an empty 204 response if the app is healthy
+    # Adjust the checks based on your application's dependencies
+
+    # Example: Check if the database is reachable
+    try:
+        # Perform a simple database query here
+        # If successful, return an "OK" response
+        return jsonify({'status': 'OK'}), 200
+    except Exception as e:
+        # If there's an error, return a failure response
+        return jsonify({'status': 'Error', 'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
